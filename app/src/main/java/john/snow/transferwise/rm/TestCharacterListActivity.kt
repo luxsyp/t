@@ -41,7 +41,7 @@ class TestCharacterListActivity : AppCompatActivity() {
         val rmService = retrofit.create<RMService>(RMService::class.java)
 
         val executorFactory = Injection.get(ExecutorFactory::class)
-        val charactersRepository = CharactersRepositoryImpl(executorFactory, rmService, characterDAO)
+        val charactersRepository = CharactersRepositoryImpl(executorFactory, rmService, characterDAO, characterDb)
         val viewModelFactory = ViewModelFactory(charactersRepository)
         charactersViewModel = ViewModelProviders.of(this, viewModelFactory).get(CharactersViewModel::class.java)
 
@@ -50,11 +50,13 @@ class TestCharacterListActivity : AppCompatActivity() {
             when (resource) {
                 is Resource.Progress -> {
                     swipeRefreshLayout.isRefreshing = true
-                    resource.data?.run { textView.text = map { it.name }.toString() }
+                    resource.data?.run {
+                        textView.text = map { it.name }.toString()
+                    }
                 }
                 is Resource.Success -> {
                     swipeRefreshLayout.isRefreshing = false
-                    textView.text = resource.data.map { it.name }.toString()
+                    textView.text = resource.data?.map { it.name }.toString()
                 }
                 is Resource.Failure -> {
                     Toast.makeText(this@TestCharacterListActivity, resource.error.message, Toast.LENGTH_LONG).show()

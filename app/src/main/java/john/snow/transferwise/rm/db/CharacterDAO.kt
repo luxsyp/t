@@ -1,5 +1,6 @@
 package john.snow.transferwise.rm.db
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -13,7 +14,7 @@ abstract class CharacterDAO {
     abstract fun insert(characters: List<Character>)
 
     @Query("SELECT * FROM character")
-    abstract fun loadAll(): List<Character>
+    abstract fun loadAll(): LiveData<List<Character>>
 
     @Query("SELECT * FROM character WHERE id = :id")
     abstract fun load(id: Int): Character
