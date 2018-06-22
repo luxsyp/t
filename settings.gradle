@@ -1,1 +1,1 @@
-include ':app', ':dependency', ':rickandmorty', ':api'
+include ':app', ':dependency', ':rickandmorty'
