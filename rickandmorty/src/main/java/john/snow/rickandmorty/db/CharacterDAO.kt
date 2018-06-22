@@ -1,23 +1,22 @@
-package john.snow.transferwise.rm.db
-
+package john.snow.rickandmorty.db
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import john.snow.transferwise.rm.model.Character
+import john.snow.rickandmorty.model.RMCharacter
 
 @Dao
 abstract class CharacterDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(characters: List<Character>)
+    abstract fun insert(characters: List<RMCharacter>)
 
     @Query("SELECT * FROM character")
-    abstract fun loadAll(): List<Character>
+    abstract fun loadAll(): List<RMCharacter>
 
     @Query("SELECT * FROM character WHERE id = :id")
-    abstract fun load(id: Int): Character
+    abstract fun load(id: Int): RMCharacter
 
     @Query("SELECT * FROM character WHERE id in (:ids)")
-    abstract fun load(ids: List<Int>): List<Character>
+    abstract fun load(ids: List<Int>): List<RMCharacter>
 }

@@ -32,6 +32,7 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
 
 
+    implementation project(path: ':rickandmorty')
     implementation project(path: ':dependency')
 
     // Network

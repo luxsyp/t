@@ -1,6 +1,6 @@
 package john.snow.transferwise.rm
 
-import john.snow.transferwise.rm.api.ApiResponse
+import john.snow.rickandmorty.model.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
@@ -22,9 +22,8 @@ class ApiResponseAdapter<R>(private val responseType: Type) : CallAdapter<R, Api
 
     override fun adapt(call: Call<R>): ApiResponse<R> {
         val response = call.execute()
-        return ApiResponse.Companion.create(response)
+        return ApiResponse.create(response)
     }
 
     override fun responseType() = responseType
-
 }
