@@ -1,0 +1,1 @@
+include ':app', ':dependency', ':rickandmorty', ':api', ':api-retrofit'
