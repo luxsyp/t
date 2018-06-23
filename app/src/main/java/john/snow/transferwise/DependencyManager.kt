@@ -3,6 +3,7 @@ package john.snow.transferwise
 import android.arch.persistence.room.Room
 import android.content.Context
 import john.snow.dependency.ExecutorFactory
+import john.snow.rickandmorty.api.RMService
 import john.snow.rickandmorty.db.CharacterDb
 import john.snow.transferwise.executor.ExecutorFactoryImpl
 import john.snow.transferwise.rm.ApiResponseAdapterFactory
@@ -22,7 +23,7 @@ class DependencyManager(context: Context) {
                 .build()
 
         retrofit = Retrofit.Builder()
-                .baseUrl("https://rickandmortyapi.com/api/")
+                .baseUrl(RMService.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(ApiResponseAdapterFactory())
                 .build()

@@ -31,13 +31,10 @@ ext {
     buildToolsVersion = '27.0.3'
 
     archVersion = "1.1.1"
-    supportVersion = "27.1.1"
+    supportVersion = "27.1.0"
     constraintLayoutVersion = "1.1.2"
     junitVersion = "4.12"
 
-//    lifecycleCompiler = '1.1.0'
-//    lifecycleExtension = '1.1.0'
-//    lifecycleRuntime = '1.1.0'
     androidArchitectureComponentsVersion = '1.1.1'
 
     okhttpVersion = '3.10.0'

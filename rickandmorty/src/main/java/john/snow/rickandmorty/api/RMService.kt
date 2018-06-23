@@ -6,9 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface RMService {
+
     @GET("character")
     fun getCharacters(): ApiResponse<RMCharacterResponse>
 
     @GET("character")
     fun getCharacters(@Url url: String): ApiResponse<RMCharacterResponse>
+
+    companion object {
+        const val ENDPOINT = "https://rickandmortyapi.com/api/"
+    }
 }
