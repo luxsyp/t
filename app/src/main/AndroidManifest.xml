@@ -20,15 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.CharacterDetailActivity"
-            android:label="@string/title_character_detail"
-            android:parentActivityName=".ui.CharacterListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="john.snow.transferwise.ui.CharacterListActivity"/>
-        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
