@@ -35,6 +35,8 @@ ext {
     constraintLayoutVersion = "1.1.2"
     junitVersion = "4.12"
 
+    executordecoratorVersion = "2.0"
+
     androidArchitectureComponentsVersion = '1.1.1'
 
     okhttpVersion = '3.10.0'

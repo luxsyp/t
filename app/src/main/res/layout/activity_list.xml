@@ -18,10 +18,12 @@
             android:layout_gravity="center"
             android:gravity="center"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+
+            <fragment
+                android:id="@+id/fragmentList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:name="john.snow.rickandmorty.list.CharactersListFragment"
                 />
 
         </LinearLayout>

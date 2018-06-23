@@ -34,7 +34,7 @@ class CharactersRepositoryImpl(
                     result.postValue(Resource.success(emptyList()))
                 }
                 is ApiErrorResponse -> {
-                    result.postValue(Resource.failure(Throwable(response.errorMessage)))
+                    result.postValue(Resource.failure(response.cause))
                 }
             }
         }

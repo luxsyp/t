@@ -27,7 +27,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
     implementation "com.android.support:appcompat-v7:$supportVersion"
 
@@ -39,5 +39,10 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$androidArchitectureComponentsVersion"
     kapt "android.arch.persistence.room:compiler:$androidArchitectureComponentsVersion"
 
+
+    implementation "com.nicolasmouchel:executordecorator-annotations:$executordecoratorVersion"
+    kapt "com.nicolasmouchel:executordecorator-compiler:$executordecoratorVersion"
+
     testImplementation "junit:junit:$junitVersion"
+    compile project(path: ':dependency')
 }

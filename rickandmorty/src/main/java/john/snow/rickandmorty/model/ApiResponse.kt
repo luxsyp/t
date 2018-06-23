@@ -6,7 +6,7 @@ import retrofit2.Response
 sealed class ApiResponse<T> {
     companion object {
         fun <T> create(error: Throwable): ApiErrorResponse<T> {
-            return ApiErrorResponse(error.message ?: "unknown error")
+            return ApiErrorResponse(error)
         }
 
         fun <T> create(networkResponse: Response<T>): ApiResponse<T> {
@@ -24,7 +24,7 @@ sealed class ApiResponse<T> {
                 } else {
                     msg
                 }
-                ApiErrorResponse(errorMsg ?: "unknown error")
+                ApiErrorResponse(Throwable(errorMsg ?: "unknown error"))
             }
         }
     }
@@ -34,4 +34,4 @@ data class ApiSuccessResponse<T>(val body: T) : ApiResponse<T>()
 
 class ApiEmptyResponse<T> : ApiResponse<T>()
 
-data class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()
+data class ApiErrorResponse<T>(val cause: Throwable) : ApiResponse<T>()
