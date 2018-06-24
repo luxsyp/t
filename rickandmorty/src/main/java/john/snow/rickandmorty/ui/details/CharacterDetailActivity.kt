@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.squareup.picasso.Picasso
 import john.snow.dependency.Injection
 import john.snow.rickandmorty.R
@@ -20,6 +21,7 @@ class CharacterDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail_list)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val charactersModuleFactory = Injection.get(CharactersModuleFactory::class)
         val module = charactersModuleFactory.getCharactersDetailModule()
@@ -33,6 +35,15 @@ class CharacterDetailActivity : AppCompatActivity() {
 
         fetchUser()
     }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean =
+            when (item?.itemId) {
+                android.R.id.home -> {
+                    finish()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
 
     private fun fetchUser() {
         if (intent.hasExtra(EXTRA_CHARACTER_ID)) {
