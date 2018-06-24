@@ -12,7 +12,7 @@ class CharacterDetailsRepositoryImpl(
 ) : CharacterDetailsRepository {
 
     override fun getCharacter(characterId: Int): RMCharacter {
-        val response = service.getCharacters(characterId)
+        val response = service.getCharacter(characterId)
         when (response) {
             is ApiSuccessResponse -> {
                 return response.body

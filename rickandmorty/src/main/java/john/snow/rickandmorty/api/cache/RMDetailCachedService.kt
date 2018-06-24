@@ -14,13 +14,13 @@ class RMDetailCachedService(
         private val retrofitDetailService: RMDetailService
 ) : RMDetailService by retrofitDetailService {
 
-    override fun getCharacters(characterId: Int): ApiResponse<RMCharacter> {
+    override fun getCharacter(characterId: Int): ApiResponse<RMCharacter> {
         val characterDAO = characterDb.characterDAO()
         val character = characterDAO.load(characterId)
         if (character != null) {
             return ApiResponse.create(Response.success(character))
         }
-        return retrofitDetailService.getCharacters(characterId).also { response ->
+        return retrofitDetailService.getCharacter(characterId).also { response ->
             if (response is ApiSuccessResponse) {
                 executorFactory.getDiskIOThread().execute {
                     characterDAO.insert(listOf(response.body))

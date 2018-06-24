@@ -8,5 +8,5 @@ import retrofit2.http.Path
 interface RMDetailService {
 
     @GET("character/{id}")
-    fun getCharacters(@Path("id") characterId: Int): ApiResponse<RMCharacter>
+    fun getCharacter(@Path("id") characterId: Int): ApiResponse<RMCharacter>
 }
