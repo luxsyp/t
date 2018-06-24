@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,40 +14,9 @@ import john.snow.rickandmorty.factory.CharactersModuleFactory
 import john.snow.rickandmorty.list.interactor.CharactersInteractor
 import john.snow.rickandmorty.list.presentation.CharactersView
 import john.snow.rickandmorty.model.RMCharacter
+import john.snow.rickandmorty.ui.adapter.OnScrollListener
 import john.snow.rickandmorty.utils.addDecorator
 import kotlinx.android.synthetic.main.fragment_characters_list.*
-
-
-abstract class OnScrollListener(val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
-    var previousTotal = 0
-    var loading = true
-    val visibleThreshold = 5
-    var firstVisibleItem = 0
-    var visibleItemCount = 0
-    var totalItemCount = 0
-
-    abstract fun onLoadMore()
-
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
-
-        visibleItemCount = recyclerView.childCount
-        totalItemCount = layoutManager.itemCount
-        firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-        if (loading) {
-            if (totalItemCount > previousTotal) {
-                loading = false
-                previousTotal = totalItemCount
-            }
-        }
-
-        if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-            onLoadMore()
-            loading = true
-        }
-    }
-}
 
 class CharactersListFragment : Fragment() {
 
@@ -60,8 +28,8 @@ class CharactersListFragment : Fragment() {
         val charactersModuleFactory = Injection.get(CharactersModuleFactory::class)
         val charactersListModule = charactersModuleFactory.getCharactersListModule()
         val viewDecorator = charactersListModule.viewDecorator
-        addDecorator(CharactersViewImpl(), viewDecorator)
         interactor = charactersListModule.interactor
+        addDecorator(CharactersViewImpl(), viewDecorator)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

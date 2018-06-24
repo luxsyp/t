@@ -5,7 +5,8 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "characterResponsePage")
 data class RMCharacterResponsePage(
-        @PrimaryKey val next: String,
+        @PrimaryKey val page: Int,
+        val next: String? = null,
         val repoIds: List<Int>,
         val count: Int
 )

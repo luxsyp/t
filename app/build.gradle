@@ -51,4 +51,5 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$androidArchitectureComponentsVersion"
 
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
 }
