@@ -3,7 +3,7 @@ package john.snow.rickandmorty.api
 import john.snow.rickandmorty.model.ApiResponse
 import john.snow.rickandmorty.model.RMCharacterResponse
 import retrofit2.http.GET
-import retrofit2.http.Url
+import retrofit2.http.Query
 
 interface RMService {
 
@@ -11,7 +11,7 @@ interface RMService {
     fun getCharacters(): ApiResponse<RMCharacterResponse>
 
     @GET("character")
-    fun getCharacters(@Url url: String): ApiResponse<RMCharacterResponse>
+    fun getCharacters(@Query("page") page: Int): ApiResponse<RMCharacterResponse>
 
     companion object {
         const val ENDPOINT = "https://rickandmortyapi.com/api/"

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,38 @@ import john.snow.rickandmorty.list.presentation.CharactersView
 import john.snow.rickandmorty.model.RMCharacter
 import john.snow.rickandmorty.utils.addDecorator
 import kotlinx.android.synthetic.main.fragment_characters_list.*
+
+
+abstract class OnScrollListener(val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+    var previousTotal = 0
+    var loading = true
+    val visibleThreshold = 5
+    var firstVisibleItem = 0
+    var visibleItemCount = 0
+    var totalItemCount = 0
+
+    abstract fun onLoadMore()
+
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        super.onScrolled(recyclerView, dx, dy)
+
+        visibleItemCount = recyclerView.childCount
+        totalItemCount = layoutManager.itemCount
+        firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+
+        if (loading) {
+            if (totalItemCount > previousTotal) {
+                loading = false
+                previousTotal = totalItemCount
+            }
+        }
+
+        if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+            onLoadMore()
+            loading = true
+        }
+    }
+}
 
 class CharactersListFragment : Fragment() {
 
@@ -36,11 +69,16 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.apply {
             adapter = charactersAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
+            addOnScrollListener(object : OnScrollListener(linearLayoutManager) {
+                override fun onLoadMore() {
+                    interactor.getCharactersNextPage()
+                }
+            })
         }
-
         interactor.getCharacters()
     }
 
@@ -75,7 +113,7 @@ class CharactersListFragment : Fragment() {
     private companion object {
         private const val DISPLAY_LOADING = 0
         private const val DISPLAY_EMPTY = 1
-        private const val DISPLAY_ERROR= 2
+        private const val DISPLAY_ERROR = 2
         private const val DISPLAY_LIST = 3
     }
 }

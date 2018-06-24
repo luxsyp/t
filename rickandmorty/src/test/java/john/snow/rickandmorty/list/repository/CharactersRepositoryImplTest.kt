@@ -7,8 +7,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.MethodRule
-import org.mockito.ArgumentMatchers
-import org.mockito.BDDMockito.*
+import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
@@ -66,7 +65,7 @@ class CharactersRepositoryImplTest {
         val response = ApiResponse.create(Response.success(RMCharacterResponse(
                 RMCharacterResponseInfo(
                         count = 2,
-                        next = "nextPageUrl"),
+                        next = "domain.com?page=2"),
                 listOf(mock(RMCharacter::class.java), mock(RMCharacter::class.java))
         )))
         given(service.getCharacters()).willReturn(response)
@@ -81,7 +80,7 @@ class CharactersRepositoryImplTest {
     fun testGetCharactersNextPage_WhenApiReturnsError() {
         testGetCharacters()
         val response = mockGeneric<ApiErrorResponse<RMCharacterResponse>>()
-        given(service.getCharacters("nextPageUrl")).willReturn(response)
+        given(service.getCharacters(2)).willReturn(response)
 
         repository.getCharactersNextPage()
     }
@@ -90,7 +89,7 @@ class CharactersRepositoryImplTest {
     fun testGetCharactersNextPage_WhenApiReturnsEmptyResponse() {
         testGetCharacters()
         val response = mockGeneric<ApiEmptyResponse<RMCharacterResponse>>()
-        given(service.getCharacters("nextPageUrl")).willReturn(response)
+        given(service.getCharacters(2)).willReturn(response)
 
         val result = repository.getCharactersNextPage()
 
@@ -106,7 +105,7 @@ class CharactersRepositoryImplTest {
                         next = ""),
                 null
         )))
-        given(service.getCharacters("nextPageUrl")).willReturn(response)
+        given(service.getCharacters(2)).willReturn(response)
 
         repository.getCharactersNextPage()
     }
@@ -117,10 +116,10 @@ class CharactersRepositoryImplTest {
         val response = ApiResponse.create(Response.success(RMCharacterResponse(
                 RMCharacterResponseInfo(
                         count = 2,
-                        next = "nextPageUrl"),
+                        next = "domain.com?page=3"),
                 listOf(mock(RMCharacter::class.java), mock(RMCharacter::class.java), mock(RMCharacter::class.java))
         )))
-        given(service.getCharacters("nextPageUrl")).willReturn(response)
+        given(service.getCharacters(2)).willReturn(response)
 
         val result = repository.getCharactersNextPage()
 

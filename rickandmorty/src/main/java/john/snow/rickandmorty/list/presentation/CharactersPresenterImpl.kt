@@ -16,7 +16,7 @@ class CharactersPresenterImpl(
     }
 
     override fun presentCharactersError(cause: Throwable) {
-        Log.e("CharactersPresenter", cause.message)
+        Log.e("CharactersPresenter", "presentCharactersError", cause)
         view.displayCharactersError()
     }
 
@@ -29,7 +29,7 @@ class CharactersPresenterImpl(
     }
 
     override fun presentNextCharactersError(cause: Throwable) {
-        Log.e("CharactersPresenter", cause.message)
+        Log.e("CharactersPresenter", "presentNextCharactersError", cause)
         view.displayNextCharactersError()
     }
 
