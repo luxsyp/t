@@ -30,7 +30,6 @@ class DependencyManager(context: Context) {
         serviceFactory = CachedServiceFactory(executorFactory, database, retrofitServiceFactory)
 
         charactersModuleFactory = CharactersModuleFactory(
-                executorFactory,
-                serviceFactory.get(RMService::class))
+                executorFactory, serviceFactory.get(RMService::class))
     }
 }
