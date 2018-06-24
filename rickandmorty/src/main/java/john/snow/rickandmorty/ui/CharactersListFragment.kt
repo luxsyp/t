@@ -2,6 +2,7 @@ package john.snow.rickandmorty.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -70,15 +71,23 @@ class CharactersListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val linearLayoutManager = LinearLayoutManager(context)
+        val separatorHeight = resources.getDimension(R.dimen.item_separator_height).toInt()
         recyclerView.apply {
             adapter = charactersAdapter
             layoutManager = linearLayoutManager
+            addItemDecoration(VerticalSpaceItemDecoration(separatorHeight))
             addOnScrollListener(object : OnScrollListener(linearLayoutManager) {
                 override fun onLoadMore() {
                     interactor.getCharactersNextPage()
                 }
             })
         }
+
+        retryButton.setOnClickListener {
+            viewFlipper.displayedChild = DISPLAY_LOADING
+            interactor.getCharacters()
+        }
+
         interactor.getCharacters()
     }
 
@@ -101,11 +110,14 @@ class CharactersListFragment : Fragment() {
         }
 
         override fun displayEndListReached() {
-
+            // do nothing
         }
 
         override fun displayNextCharactersError() {
-
+            Snackbar.make(recyclerView, R.string.error_generic, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.error_retry, {
+                        interactor.getCharactersNextPage()
+                    }).show()
         }
     }
 

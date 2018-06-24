@@ -6,6 +6,7 @@ import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+import java.net.SocketTimeoutException
 
 class ApiResponseAdapterFactory : CallAdapter.Factory() {
     override fun get(returnType: Type, annotations: Array<out Annotation>, retrofit: Retrofit
@@ -19,10 +20,15 @@ class ApiResponseAdapterFactory : CallAdapter.Factory() {
 }
 
 class ApiResponseAdapter<R>(private val responseType: Type) : CallAdapter<R, ApiResponse<R>> {
-
     override fun adapt(call: Call<R>): ApiResponse<R> {
-        val response = call.execute()
-        return ApiResponse.create(response)
+        return try {
+            val response = call.execute()
+            ApiResponse.create(response)
+        } catch (e: SocketTimeoutException) {
+            ApiResponse.create(e)
+        } catch (ex: Exception) {
+            ApiResponse.create(ex)
+        }
     }
 
     override fun responseType() = responseType

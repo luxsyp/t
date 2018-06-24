@@ -9,6 +9,10 @@ sealed class ApiResponse<T> {
             return ApiErrorResponse(error)
         }
 
+        fun <T> create(exception: Exception): ApiErrorResponse<T> {
+            return ApiErrorResponse(exception)
+        }
+
         fun <T> create(networkResponse: Response<T>): ApiResponse<T> {
             return if (networkResponse.isSuccessful) {
                 val body = networkResponse.body()

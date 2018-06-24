@@ -3,5 +3,6 @@
 
     <string name="empty_view">Empty view</string>
     <string name="error_retry">retry</string>
+    <string name="error_generic">Something went wrong</string>
 
 </resources>
