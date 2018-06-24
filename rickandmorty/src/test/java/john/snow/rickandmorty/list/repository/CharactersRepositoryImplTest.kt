@@ -1,6 +1,6 @@
 package john.snow.rickandmorty.list.repository
 
-import john.snow.rickandmorty.api.RMService
+import john.snow.rickandmorty.api.RMListService
 import john.snow.rickandmorty.model.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -20,19 +20,19 @@ class CharactersRepositoryImplTest {
     var mockito: MethodRule = MockitoJUnit.rule()
 
     @Mock
-    private lateinit var service: RMService
+    private lateinit var listService: RMListService
 
     private lateinit var repository: CharactersRepository
 
     @Before
     fun setUp() {
-        repository = CharactersRepositoryImpl(service)
+        repository = CharactersRepositoryImpl(listService)
     }
 
     @Test(expected = CharactersRepository.CharactersException::class)
     fun testGetCharacters_WhenApiReturnsError() {
         val response = mockGeneric<ApiErrorResponse<RMCharacterResponse>>()
-        given(service.getCharacters()).willReturn(response)
+        given(listService.getCharacters()).willReturn(response)
 
         repository.getCharacters()
     }
@@ -40,7 +40,7 @@ class CharactersRepositoryImplTest {
     @Test
     fun testGetCharacters_WhenApiReturnsEmptyResponse() {
         val response = mockGeneric<ApiEmptyResponse<RMCharacterResponse>>()
-        given(service.getCharacters()).willReturn(response)
+        given(listService.getCharacters()).willReturn(response)
 
         val result = repository.getCharacters()
 
@@ -55,7 +55,7 @@ class CharactersRepositoryImplTest {
                         next = ""),
                 null
         )))
-        given(service.getCharacters()).willReturn(response)
+        given(listService.getCharacters()).willReturn(response)
 
         repository.getCharacters()
     }
@@ -68,7 +68,7 @@ class CharactersRepositoryImplTest {
                         next = "domain.com?page=2"),
                 listOf(mock(RMCharacter::class.java), mock(RMCharacter::class.java))
         )))
-        given(service.getCharacters()).willReturn(response)
+        given(listService.getCharacters()).willReturn(response)
 
         val result = repository.getCharacters()
 
@@ -80,7 +80,7 @@ class CharactersRepositoryImplTest {
     fun testGetCharactersNextPage_WhenApiReturnsError() {
         testGetCharacters()
         val response = mockGeneric<ApiErrorResponse<RMCharacterResponse>>()
-        given(service.getCharacters(2)).willReturn(response)
+        given(listService.getCharacters(2)).willReturn(response)
 
         repository.getCharactersNextPage()
     }
@@ -89,7 +89,7 @@ class CharactersRepositoryImplTest {
     fun testGetCharactersNextPage_WhenApiReturnsEmptyResponse() {
         testGetCharacters()
         val response = mockGeneric<ApiEmptyResponse<RMCharacterResponse>>()
-        given(service.getCharacters(2)).willReturn(response)
+        given(listService.getCharacters(2)).willReturn(response)
 
         val result = repository.getCharactersNextPage()
 
@@ -105,7 +105,7 @@ class CharactersRepositoryImplTest {
                         next = ""),
                 null
         )))
-        given(service.getCharacters(2)).willReturn(response)
+        given(listService.getCharacters(2)).willReturn(response)
 
         repository.getCharactersNextPage()
     }
@@ -119,7 +119,7 @@ class CharactersRepositoryImplTest {
                         next = "domain.com?page=3"),
                 listOf(mock(RMCharacter::class.java), mock(RMCharacter::class.java), mock(RMCharacter::class.java))
         )))
-        given(service.getCharacters(2)).willReturn(response)
+        given(listService.getCharacters(2)).willReturn(response)
 
         val result = repository.getCharactersNextPage()
 

@@ -1,16 +1,16 @@
 package john.snow.rickandmorty.api.cache
 
 import john.snow.dependency.ExecutorFactory
-import john.snow.rickandmorty.api.RMService
+import john.snow.rickandmorty.api.RMListService
 import john.snow.rickandmorty.db.CharacterDb
 import john.snow.rickandmorty.model.*
 import retrofit2.Response
 
-class RMCachedService(
+class RMListCachedService(
         private val executorFactory: ExecutorFactory,
         private val characterDb: CharacterDb,
-        private val retrofitService: RMService
-) : RMService by retrofitService {
+        private val retrofitListService: RMListService
+) : RMListService by retrofitListService {
     private val characterDAO = characterDb.characterDAO()
     private val characterResponsePageDAO = characterDb.characterResponsePageDAO()
 
@@ -22,7 +22,7 @@ class RMCachedService(
             pages.map { ids.addAll(it.repoIds) }
             return reconstructResponse(pages.last(), ids)
         }
-        return retrofitService.getCharacters().also { response ->
+        return retrofitListService.getCharacters().also { response ->
             saveResponseInDb(response)
         }
     }
@@ -32,7 +32,7 @@ class RMCachedService(
         if (foundPage != null) {
             return reconstructResponse(foundPage, foundPage.repoIds)
         }
-        return retrofitService.getCharacters(page).also { response ->
+        return retrofitListService.getCharacters(page).also { response ->
             saveResponseInDb(response, page)
         }
     }

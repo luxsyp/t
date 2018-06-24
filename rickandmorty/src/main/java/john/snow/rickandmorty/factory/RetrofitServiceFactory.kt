@@ -2,7 +2,8 @@ package john.snow.rickandmorty.factory
 
 import john.snow.dependency.ServiceFactory
 import john.snow.rickandmorty.api.ApiResponseAdapterFactory
-import john.snow.rickandmorty.api.RMService
+import john.snow.rickandmorty.api.RMDetailService
+import john.snow.rickandmorty.api.RMListService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.reflect.KClass
@@ -16,7 +17,8 @@ class RetrofitServiceFactory : ServiceFactory {
             .build()
 
     private val map: Map<KClass<out Any>, () -> Any> = mapOf(
-            RMService::class to { retrofit.create(RMService::class.java) }
+            RMListService::class to { retrofit.create(RMListService::class.java) },
+            RMDetailService::class to { retrofit.create(RMDetailService::class.java) }
     )
 
     @Suppress("UNCHECKED_CAST")

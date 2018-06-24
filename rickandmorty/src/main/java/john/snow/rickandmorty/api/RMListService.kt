@@ -5,7 +5,7 @@ import john.snow.rickandmorty.model.RMCharacterResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RMService {
+interface RMListService {
 
     @GET("character")
     fun getCharacters(): ApiResponse<RMCharacterResponse>
