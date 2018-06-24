@@ -1,4 +1,4 @@
-package john.snow.rickandmorty.list
+package john.snow.rickandmorty.list.presentation
 
 import john.snow.rickandmorty.model.RMCharacter
 
@@ -8,6 +8,6 @@ interface CharactersView {
     fun displayCharactersError()
 
     fun displayNextCharacters(characters: List<RMCharacter>)
+    fun displayEndListReached()
     fun displayNextCharactersError()
-    fun displayNextCharactersEmpty()
 }

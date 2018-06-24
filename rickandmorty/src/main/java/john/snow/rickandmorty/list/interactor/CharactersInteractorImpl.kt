@@ -1,9 +1,7 @@
-package john.snow.rickandmorty.list
+package john.snow.rickandmorty.list.interactor
 
-interface CharactersInteractor {
-    fun getCharacters()
-    fun getNextPage()
-}
+import john.snow.rickandmorty.list.presentation.CharactersPresenter
+import john.snow.rickandmorty.list.repository.CharactersRepository
 
 class CharactersInteractorImpl(
         private val presenter: CharactersPresenter,
@@ -19,10 +17,14 @@ class CharactersInteractorImpl(
         }
     }
 
-    override fun getNextPage() {
+    override fun getCharactersNextPage() {
         try {
-            val characters = repository.getNextPage()
-            presenter.presentNextCharacters(characters)
+            val characters = repository.getCharactersNextPage()
+            if (characters.isNotEmpty()) {
+                presenter.presentNextCharacters(characters)
+            } else {
+                presenter.presentNextCharactersEndReached()
+            }
         } catch (e: CharactersRepository.CharactersException) {
             presenter.presentNextCharactersError(e)
         }

@@ -25,24 +25,26 @@ allprojects {
 }
 
 ext {
-    compileSdkVersion = 26
-    targetSdkVersion = 26
+    versionCode = 1
+    versionName = '1.0'
+    compileSdkVersion = 27
+    targetSdkVersion = 27
     minSdkVersion = 16
     buildToolsVersion = '27.0.3'
 
-    archVersion = "1.1.1"
-    supportVersion = "27.1.0"
-    constraintLayoutVersion = "1.1.2"
-    junitVersion = "4.12"
-
+    supportVersion = '27.1.0'
+    constraintLayoutVersion = '1.1.2'
     executordecoratorVersion = "2.0"
 
     androidArchitectureComponentsVersion = '1.1.1'
 
-    okhttpVersion = '3.10.0'
     glideVersion = '4.7.1'
 
     retrofitVersion = '2.4.0'
+
+    junitVersion = '4.12'
+    mockitoCoreVersion = '2.19.0'
+    assertjCoreVersion = '3.10.0'
 }
 
 task clean(type: Delete) {

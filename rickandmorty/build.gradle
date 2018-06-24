@@ -7,7 +7,6 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
-
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -23,6 +22,9 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -30,6 +32,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
     implementation "com.android.support:appcompat-v7:$supportVersion"
+
+    implementation project(path: ':dependency')
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -39,10 +43,11 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$androidArchitectureComponentsVersion"
     kapt "android.arch.persistence.room:compiler:$androidArchitectureComponentsVersion"
 
-
+    // Decorator
     implementation "com.nicolasmouchel:executordecorator-annotations:$executordecoratorVersion"
     kapt "com.nicolasmouchel:executordecorator-compiler:$executordecoratorVersion"
 
     testImplementation "junit:junit:$junitVersion"
-    compile project(path: ':dependency')
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    testImplementation "org.assertj:assertj-core:$assertjCoreVersion"
 }

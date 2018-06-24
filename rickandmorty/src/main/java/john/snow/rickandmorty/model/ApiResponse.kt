@@ -19,7 +19,7 @@ sealed class ApiResponse<T> {
                 }
             } else {
                 val msg = networkResponse.errorBody().toString()
-                val errorMsg = if (msg.isNullOrEmpty()) {
+                val errorMsg = if (msg.isEmpty()) {
                     networkResponse.message()
                 } else {
                     msg

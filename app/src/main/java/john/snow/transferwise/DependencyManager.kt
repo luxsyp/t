@@ -6,6 +6,7 @@ import john.snow.dependency.ExecutorFactory
 import john.snow.dependency.ServiceFactory
 import john.snow.rickandmorty.api.RMService
 import john.snow.rickandmorty.db.CharacterDb
+import john.snow.rickandmorty.factory.CharactersModuleFactory
 import john.snow.transferwise.executor.ExecutorFactoryImpl
 import john.snow.transferwise.rm.ApiResponseAdapterFactory
 import john.snow.transferwise.service.CachedServiceFactory
@@ -20,6 +21,7 @@ class DependencyManager(context: Context) {
     val database: CharacterDb
     val retrofit: Retrofit
     val serviceFactory: ServiceFactory
+    val charactersModuleFactory: CharactersModuleFactory
 
     init {
         executorFactory = ExecutorFactoryImpl()
@@ -35,6 +37,10 @@ class DependencyManager(context: Context) {
                 .build()
 
         val retrofitServiceFactory = RetrofitServiceFactory(retrofit)
-        serviceFactory= CachedServiceFactory(executorFactory, database, retrofitServiceFactory)
+        serviceFactory = CachedServiceFactory(executorFactory, database, retrofitServiceFactory)
+
+        charactersModuleFactory = CharactersModuleFactory(
+                executorFactory,
+                serviceFactory.get(RMService::class))
     }
 }

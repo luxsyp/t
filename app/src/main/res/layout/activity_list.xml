@@ -23,7 +23,7 @@
                 android:id="@+id/fragmentList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="john.snow.rickandmorty.list.CharactersListFragment"
+                android:name="john.snow.rickandmorty.ui.CharactersListFragment"
                 />
 
         </LinearLayout>

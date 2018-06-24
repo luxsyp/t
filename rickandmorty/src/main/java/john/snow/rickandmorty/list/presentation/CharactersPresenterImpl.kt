@@ -1,19 +1,12 @@
-package john.snow.rickandmorty.list
+package john.snow.rickandmorty.list.presentation
 
 import android.util.Log
 import john.snow.rickandmorty.model.RMCharacter
 
-interface CharactersPresenter {
-    fun presentCharacters(characters: List<RMCharacter>)
-    fun presentCharactersError(cause: Throwable)
-
-    fun presentNextCharacters(characters: List<RMCharacter>)
-    fun presentNextCharactersError(cause: Throwable)
-}
-
 class CharactersPresenterImpl(
         private val view: CharactersView
 ) : CharactersPresenter {
+
     override fun presentCharacters(characters: List<RMCharacter>) {
         if (characters.isEmpty()) {
             view.displayCharactersEmpty()
@@ -24,11 +17,12 @@ class CharactersPresenterImpl(
 
     override fun presentCharactersError(cause: Throwable) {
         Log.e("CharactersPresenter", cause.message)
+        view.displayCharactersError()
     }
 
     override fun presentNextCharacters(characters: List<RMCharacter>) {
         if (characters.isEmpty()) {
-            view.displayNextCharactersEmpty()
+            view.displayEndListReached()
         } else {
             view.displayNextCharacters(characters)
         }
@@ -36,6 +30,10 @@ class CharactersPresenterImpl(
 
     override fun presentNextCharactersError(cause: Throwable) {
         Log.e("CharactersPresenter", cause.message)
+        view.displayNextCharactersError()
     }
 
+    override fun presentNextCharactersEndReached() {
+        view.displayEndListReached()
+    }
 }
