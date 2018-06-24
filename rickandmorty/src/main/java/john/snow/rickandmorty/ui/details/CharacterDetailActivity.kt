@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import john.snow.dependency.Injection
 import john.snow.rickandmorty.R
 import john.snow.rickandmorty.detail.interactor.CharacterDetailsInteractor
@@ -19,6 +20,7 @@ class CharacterDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail_list)
+
         val charactersModuleFactory = Injection.get(CharactersModuleFactory::class)
         val module = charactersModuleFactory.getCharactersDetailModule()
         interactor = module.interactor
@@ -42,6 +44,10 @@ class CharacterDetailActivity : AppCompatActivity() {
     private inner class CharacterDetailsViewImpl : CharacterDetailsView {
         override fun displayCharacter(character: RMCharacter) {
             viewFlipper.displayedChild = DISPLAY_DETAIL
+            nameTextView.text = character.name
+            statusTextView.text = getString(R.string.character_status, character.status)
+            episodesTextView.text = character.episode.joinToString(separator = "") { "$it\n" }
+            Picasso.get().load(character.image).into(characterImageView)
         }
 
         override fun displayCharacterError() {

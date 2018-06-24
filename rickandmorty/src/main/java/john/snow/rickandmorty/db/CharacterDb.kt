@@ -14,7 +14,7 @@ import john.snow.rickandmorty.model.RMCharacterResponsePage
         version = 1,
         exportSchema = false
 )
-@TypeConverters(IntegerListConverter::class)
+@TypeConverters(IntegerListConverter::class, StringListConverter::class)
 abstract class CharacterDb : RoomDatabase() {
     abstract fun characterDAO(): CharacterDAO
     abstract fun characterResponsePageDAO(): CharacterResponsePageDAO

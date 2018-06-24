@@ -9,5 +9,6 @@ data class RMCharacter(
         @PrimaryKey @SerializedName("id") val id: Int,
         @SerializedName("name") val name: String,
         @SerializedName("status") val status: String,
-        @SerializedName("image") val image: String
+        @SerializedName("image") val image: String,
+        @SerializedName("episode") val episode: List<String>
 )
