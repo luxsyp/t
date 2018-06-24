@@ -41,12 +41,18 @@ dependencies {
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
     // Image
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
-    // Arch
-    implementation "android.arch.persistence.room:runtime:$androidArchitectureComponentsVersion"
+    // Room
+    api "android.arch.persistence.room:runtime:$androidArchitectureComponentsVersion"
     kapt "android.arch.persistence.room:compiler:$androidArchitectureComponentsVersion"
+
+    // Lifecycle
+    implementation "android.arch.lifecycle:runtime:$androidArchitectureComponentsVersion"
+    api "android.arch.lifecycle:extensions:$androidArchitectureComponentsVersion"
+    kapt "android.arch.lifecycle:compiler:$androidArchitectureComponentsVersion"
 
     // Decorator
     implementation "com.nicolasmouchel:executordecorator-annotations:$executordecoratorVersion"

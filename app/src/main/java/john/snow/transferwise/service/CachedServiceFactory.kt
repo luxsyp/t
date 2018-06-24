@@ -3,8 +3,8 @@ package john.snow.transferwise.service
 import john.snow.dependency.ExecutorFactory
 import john.snow.dependency.ServiceFactory
 import john.snow.rickandmorty.api.RMService
+import john.snow.rickandmorty.api.cache.RMCachedService
 import john.snow.rickandmorty.db.CharacterDb
-import john.snow.transferwise.rm.api.RMCachedService
 import kotlin.reflect.KClass
 
 class CachedServiceFactory(

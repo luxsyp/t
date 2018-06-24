@@ -12,8 +12,4 @@ interface RMService {
 
     @GET("character")
     fun getCharacters(@Query("page") page: Int): ApiResponse<RMCharacterResponse>
-
-    companion object {
-        const val ENDPOINT = "https://rickandmortyapi.com/api/"
-    }
 }

@@ -6,7 +6,6 @@ import android.arch.persistence.room.TypeConverters
 import john.snow.rickandmorty.model.RMCharacter
 import john.snow.rickandmorty.model.RMCharacterResponsePage
 
-
 @Database(
         entities = [
             RMCharacter::class,

@@ -30,26 +30,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
     implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:support-v4:$supportVersion"
-    implementation "com.android.support:recyclerview-v7:$supportVersion"
-    implementation "com.android.support:design:$supportVersion"
-
 
     implementation project(path: ':rickandmorty')
     implementation project(path: ':dependency')
-
-    // Network
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-
-    // Arch
-    implementation "android.arch.persistence.room:runtime:$androidArchitectureComponentsVersion"
-    kapt "android.arch.persistence.room:compiler:$androidArchitectureComponentsVersion"
-
-    implementation "android.arch.lifecycle:runtime:$androidArchitectureComponentsVersion"
-    implementation "android.arch.lifecycle:extensions:$androidArchitectureComponentsVersion"
-    kapt "android.arch.lifecycle:compiler:$androidArchitectureComponentsVersion"
-
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
 }
