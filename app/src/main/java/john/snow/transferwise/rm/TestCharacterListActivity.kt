@@ -36,12 +36,12 @@ class TestCharacterListActivity : AppCompatActivity() {
         charactersViewModel.charactersResource.observe(this, Observer { resource ->
             when (resource) {
                 is Resource.Progress -> {
-                    swipeRefreshLayout.isRefreshing = true
-                    resource.data?.run { textView.text = map { it.name }.toString() }
+//                    swipeRefreshLayout.isRefreshing = true
+//                    resource.data?.run { textView.text = map { it.name }.toString() }
                 }
                 is Resource.Success -> {
-                    swipeRefreshLayout.isRefreshing = false
-                    textView.text = resource.data?.map { it.name }.toString()
+//                    swipeRefreshLayout.isRefreshing = false
+//                    textView.text = resource.data?.map { it.name }.toString()
                 }
                 is Resource.Failure -> {
                     Toast.makeText(this@TestCharacterListActivity, resource.error.message, Toast.LENGTH_LONG).show()

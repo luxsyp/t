@@ -38,8 +38,7 @@ ext {
 
     androidArchitectureComponentsVersion = '1.1.1'
 
-    glideVersion = '4.7.1'
-
+    picassoVersion = '2.71828'
     retrofitVersion = '2.4.0'
 
     junitVersion = '4.12'

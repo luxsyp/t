@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">rickandmorty</string>
+
+    <string name="empty_view">Empty view</string>
+    <string name="error_retry">retry</string>
+
 </resources>
