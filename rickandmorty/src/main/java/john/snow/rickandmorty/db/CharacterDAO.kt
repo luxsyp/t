@@ -12,11 +12,11 @@ abstract class CharacterDAO {
     abstract fun insert(characters: List<RMCharacter>)
 
     @Query("SELECT * FROM character")
-    abstract fun loadAll(): List<RMCharacter>
+    abstract fun loadAll(): List<RMCharacter>?
 
     @Query("SELECT * FROM character WHERE id = :id")
-    abstract fun load(id: Int): RMCharacter
+    abstract fun load(id: Int): RMCharacter?
 
     @Query("SELECT * FROM character WHERE id in (:ids)")
-    abstract fun load(ids: List<Int>): List<RMCharacter>
+    abstract fun load(ids: List<Int>): List<RMCharacter>?
 }

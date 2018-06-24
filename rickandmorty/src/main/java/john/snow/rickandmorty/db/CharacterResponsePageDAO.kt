@@ -13,7 +13,7 @@ abstract class CharacterResponsePageDAO {
     abstract fun insert(characterResponsePage: RMCharacterResponsePage)
 
     @Query("SELECT * FROM characterResponsePage")
-    abstract fun loadAll(): List<RMCharacterResponsePage>
+    abstract fun loadAll(): List<RMCharacterResponsePage>?
 
     @Query("SELECT * FROM characterResponsePage WHERE page = :pageNumber")
     abstract fun loadByPageNumber(pageNumber: Int): RMCharacterResponsePage?

@@ -16,8 +16,7 @@ class RMListCachedService(
 
     override fun getCharacters(): ApiResponse<RMCharacterResponse> {
         val pages = characterResponsePageDAO.loadAll()
-
-        if (pages.isNotEmpty()) {
+        if (pages != null && pages.isNotEmpty()) {
             val ids = mutableListOf<Int>()
             pages.map { ids.addAll(it.repoIds) }
             return reconstructResponse(pages.last(), ids)
