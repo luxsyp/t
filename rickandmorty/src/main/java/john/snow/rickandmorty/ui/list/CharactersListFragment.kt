@@ -15,13 +15,14 @@ import john.snow.rickandmorty.list.interactor.CharactersInteractor
 import john.snow.rickandmorty.list.presentation.CharactersView
 import john.snow.rickandmorty.model.RMCharacter
 import john.snow.rickandmorty.ui.adapter.OnScrollListener
+import john.snow.rickandmorty.ui.details.CharacterDetailActivity
 import john.snow.rickandmorty.utils.addDecorator
 import kotlinx.android.synthetic.main.fragment_characters_list.*
 
 class CharactersListFragment : Fragment() {
 
     private lateinit var interactor: CharactersInteractor
-    private val charactersAdapter: CharactersAdapter = CharactersAdapter()
+    private lateinit var charactersAdapter: CharactersAdapter
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -38,17 +39,14 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        charactersAdapter = CharactersAdapter(OnItemClickListener())
         val linearLayoutManager = LinearLayoutManager(context)
         val separatorHeight = resources.getDimension(R.dimen.item_separator_height).toInt()
         recyclerView.apply {
             adapter = charactersAdapter
             layoutManager = linearLayoutManager
             addItemDecoration(VerticalSpaceItemDecoration(separatorHeight))
-            addOnScrollListener(object : OnScrollListener(linearLayoutManager) {
-                override fun onLoadMore() {
-                    interactor.getCharactersNextPage()
-                }
-            })
+            addOnScrollListener(ScrollMoreListener(linearLayoutManager))
         }
 
         retryButton.setOnClickListener {
@@ -57,6 +55,18 @@ class CharactersListFragment : Fragment() {
         }
 
         interactor.getCharacters()
+    }
+
+    private inner class OnItemClickListener : CharactersAdapter.OnCharacterClickListener {
+        override fun onClick(character: RMCharacter) {
+            context?.let { CharacterDetailActivity.start(it, character.id) }
+        }
+    }
+
+    private inner class ScrollMoreListener(layoutManager: LinearLayoutManager) : OnScrollListener(layoutManager) {
+        override fun onLoadMore() {
+            interactor.getCharactersNextPage()
+        }
     }
 
     private inner class CharactersViewImpl : CharactersView {

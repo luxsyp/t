@@ -21,9 +21,13 @@ class CharacterDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_character_detail_list)
         val charactersModuleFactory = Injection.get(CharactersModuleFactory::class)
         val module = charactersModuleFactory.getCharactersDetailModule()
+        interactor = module.interactor
         addDecorator(CharacterDetailsViewImpl(), module.viewDecorator)
 
-        retryButton.setOnClickListener { fetchUser() }
+        retryButton.setOnClickListener {
+            viewFlipper.displayedChild = DISPLAY_LOADING
+            fetchUser()
+        }
 
         fetchUser()
     }
@@ -45,7 +49,6 @@ class CharacterDetailActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("unused")
     companion object {
         private const val EXTRA_CHARACTER_ID = "EXTRA_CHARACTER_ID"
         private const val DISPLAY_LOADING = 0

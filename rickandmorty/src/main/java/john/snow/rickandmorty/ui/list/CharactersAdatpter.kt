@@ -10,12 +10,14 @@ import john.snow.rickandmorty.model.RMCharacter
 import kotlinx.android.synthetic.main.cell_character.view.*
 
 
-class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
+class CharactersAdapter(
+        private val clickListener: OnCharacterClickListener
+) : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
     private var data: MutableList<RMCharacter?> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.cell_character, parent, false)
-        return CharacterViewHolder(v)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.cell_character, parent, false)
+        return CharacterViewHolder(view, clickListener)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
@@ -28,12 +30,13 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
         return data.size
     }
 
-    class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CharacterViewHolder(itemView: View, private val clickListener: OnCharacterClickListener) : RecyclerView.ViewHolder(itemView) {
         fun bind(character: RMCharacter) {
             itemView.apply {
                 nameTextView.text = character.name
                 statusTextView.text = character.status
                 Picasso.get().load(character.image).into(characterImageView)
+                setOnClickListener { clickListener.onClick(character) }
             }
         }
     }
@@ -46,5 +49,9 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
     fun addCharacters(characters: List<RMCharacter>) {
         data.addAll(characters)
         notifyDataSetChanged()
+    }
+
+    interface OnCharacterClickListener {
+        fun onClick(character: RMCharacter)
     }
 }
